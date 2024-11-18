@@ -8,22 +8,42 @@ import About from './pages/About.jsx';
 import Contact from './pages/Contact.jsx';
 import Settings from './pages/Settings.jsx';
 import Navbar from './pages/Navbar.jsx';
+import Dashboard from './pages/Dashboard.jsx';
+import Login from './pages/Login.jsx';
 import './App.css'
+
+import {useAuth, AuthProvider} from './context/AuthContext.jsx';
+
+const PrivateRoute = ({ children }) => {
+  const { user } = useAuth();
+  return user ? children : <Navigate to="/login" />;
+};
 
 const App = () => {
   return (
-    <Router>
-      <div className="App">
-        <Navbar/>
-        <Routes>
-          <Route path="/" element={<Home/>}/>
-          <Route path="/wallet" element={<Wallet/>}/>
-          <Route path="/about" element={<About/>}/>
-          <Route path="/contact" element={<Contact/>}/>
-          <Route path="/settings" element={<Settings/>}/>
-        </Routes>
-      </div>
-    </Router>
+      <AuthProvider>
+        <Router>
+          <div className="App">
+            <Navbar/>
+            <Routes>
+              <Route path="/" element={<Home/>}/>
+              <Route path="/login" element={<Login/>}/>
+              <Route
+                  path="/dashboard"
+                  element={
+                    <PrivateRoute>
+                      <Dashboard/>
+                    </PrivateRoute>
+                  }
+              />
+              <Route path="/wallet" element={<Wallet/>}/>
+              <Route path="/about" element={<About/>}/>
+              <Route path="/contact" element={<Contact/>}/>
+              <Route path="/settings" element={<Settings/>}/>
+            </Routes>
+          </div>
+        </Router>
+      </AuthProvider>
   );
 };
 
