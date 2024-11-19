@@ -1,6 +1,13 @@
 import {useState, useEffect} from 'react';
+import {useElectrum} from '../context/ElectrumContext.jsx';
 
 const Wallet = () => {
+  const {walletStore, wallet} = useElectrum();
+
+  useEffect(() => {
+    // Additional useEffect to watch for changes in walletStore
+    // No specific action needed, rerender will be triggered automatically
+  }, [walletStore]);
 
   const handleRestoreButtonClick = () => {
     setIsOpen(true);
@@ -17,7 +24,7 @@ const Wallet = () => {
 
   return (
       <div>
-        {keyValueExists ? (
+        {walletStore ? (
             <>
               <h1>Reddcoin Wallet</h1>
             </>

@@ -13,6 +13,7 @@ import Login from './pages/Login.jsx';
 import './App.css'
 
 import {useAuth, AuthProvider} from './context/AuthContext.jsx';
+import {ElectrumProvider} from './context/ElectrumContext.jsx';
 
 const PrivateRoute = ({ children }) => {
   const { user } = useAuth();
@@ -22,27 +23,29 @@ const PrivateRoute = ({ children }) => {
 const App = () => {
   return (
       <AuthProvider>
-        <Router>
-          <div className="App">
-            <Navbar/>
-            <Routes>
-              <Route path="/" element={<Home/>}/>
-              <Route path="/login" element={<Login/>}/>
-              <Route
-                  path="/dashboard"
-                  element={
-                    <PrivateRoute>
-                      <Dashboard/>
-                    </PrivateRoute>
-                  }
-              />
-              <Route path="/wallet" element={<Wallet/>}/>
-              <Route path="/about" element={<About/>}/>
-              <Route path="/contact" element={<Contact/>}/>
-              <Route path="/settings" element={<Settings/>}/>
-            </Routes>
-          </div>
-        </Router>
+        <ElectrumProvider>
+          <Router>
+            <div className="App">
+              <Navbar/>
+              <Routes>
+                <Route path="/" element={<Home/>}/>
+                <Route path="/login" element={<Login/>}/>
+                <Route
+                    path="/dashboard"
+                    element={
+                      <PrivateRoute>
+                        <Dashboard/>
+                      </PrivateRoute>
+                    }
+                />
+                <Route path="/wallet" element={<Wallet/>}/>
+                <Route path="/about" element={<About/>}/>
+                <Route path="/contact" element={<Contact/>}/>
+                <Route path="/settings" element={<Settings/>}/>
+              </Routes>
+            </div>
+          </Router>
+        </ElectrumProvider>
       </AuthProvider>
   );
 };
