@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useElectrum} from '../context/ElectrumContext.jsx';
 import TransactionHistoryComponent from '../components/TransactionHistoryComponent.jsx';
+import SendReceiveComponent from '../components/SendReceiveComponent.jsx';
 
 const loadTransactions = async (wallet, setTransactions) => {
   try {
@@ -12,7 +13,7 @@ const loadTransactions = async (wallet, setTransactions) => {
 };
 
 const Wallet = () => {
-  const {walletStore, wallet} = useElectrum();
+  const {walletStore, createWallet, wallet, monitor} = useElectrum();
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
@@ -32,17 +33,22 @@ const Wallet = () => {
     return transactions;
   }
 
-  const handleRestoreButtonClick = () => {
-    setIsOpen(true);
-    setCreating(false);
+  const handleOnSend = (address, amount) => {
+    console.log(`handleOnSend: ${address} ${amount}`);
+    if (address === '' || amount === '' ) {
+      return 'Error'
+    }
+    const acctIndex = 0;
+    const requirePwd = true;
+    const password = '';
+    if (!wallet) {
+      return 'Error'
+    }
+    wallet.send(amount * 100000000, acctIndex, requirePwd, address, password, monitor );
   };
 
-  const handleRestoreAccept = (value) => {
-    console.log(`handleRestoreAccept be: ${value}`)
-    inputValue = value;
-    setIsOpen(false);
-    // taskInput = value;
-    configureElectrum(value);
+  const handleOnReceive = (address, amount) => {
+    console.log(`handleOnReceive`);
   };
 
   return (
@@ -52,6 +58,8 @@ const Wallet = () => {
               <header>
                 <h1>Reddcoin Wallet</h1>
               </header>
+              <SendReceiveComponent onSend={handleOnSend}
+                                    onReceive={handleOnReceive}/>
               <TransactionHistoryComponent data={getTransactions()}/>
             </>
         ) : (
