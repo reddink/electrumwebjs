@@ -3,6 +3,7 @@ import {useElectrum} from '../context/ElectrumContext.jsx';
 import BalanceComponent from '../components/BalanceComponent.jsx';
 import TransactionHistoryComponent from '../components/TransactionHistoryComponent.jsx';
 import SendReceiveComponent from '../components/SendReceiveComponent.jsx';
+import ImportCreateComponent from '../components/ImportCreateComponent.jsx';
 
 const INITIAL_BALANCE = {confirmed: 0, unconfirmed: 0};
 
@@ -76,6 +77,16 @@ const Wallet = () => {
     console.log(`handleOnReceive`);
   };
 
+  const handleOnImport = (seed) => {
+    console.log(`onImport: ${seed}`);
+    createWallet(seed);
+  }
+
+  const handleOnCreate = (seed) => {
+    console.log(`onCreate: ${seed}`);
+    createWallet(seed);
+  }
+
   return (
       <div className="AppBody">
         {walletStore ? (
@@ -93,7 +104,7 @@ const Wallet = () => {
               <header>
                 <h1>Manage Wallet</h1>
               </header>
-              <p>Create to the Wallet!</p>
+              <ImportCreateComponent onCreate={handleOnCreate} onImport={handleOnImport}/>
             </>
         )}
       </div>
