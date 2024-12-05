@@ -23,14 +23,18 @@ const Wallet = () => {
   };
 
   return (
-      <div>
+      <div className="AppBody">
         {walletStore ? (
             <>
-              <h1>Reddcoin Wallet</h1>
+              <header>
+                <h1>Reddcoin Wallet</h1>
+              </header>
             </>
         ) : (
             <>
-              <h1>Create or Import Wallet</h1>
+              <header>
+                <h1>Manage Wallet</h1>
+              </header>
               <p>Create to the Wallet!</p>
             </>
         )}
