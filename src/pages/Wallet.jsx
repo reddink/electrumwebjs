@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useElectrum} from '../context/ElectrumContext.jsx';
 import BalanceComponent from '../components/BalanceComponent.jsx';
 import TransactionHistoryComponent from '../components/TransactionHistoryComponent.jsx';
@@ -57,20 +57,20 @@ const Wallet = () => {
     if (!wallet) return [];
     const transactions = wallet.getTransactions();
     return transactions;
-  }
+  };
 
   const handleOnSend = (address, amount) => {
     console.log(`handleOnSend: ${address} ${amount}`);
-    if (address === '' || amount === '' ) {
-      return 'Error'
+    if (address === '' || amount === '') {
+      return 'Error';
     }
     const acctIndex = 0;
     const requirePwd = true;
     const password = '';
     if (!wallet) {
-      return 'Error'
+      return 'Error';
     }
-    wallet.send(amount * 100000000, acctIndex, requirePwd, address, password, monitor );
+    wallet.send(amount * 100000000, acctIndex, requirePwd, address, password, monitor);
   };
 
   const handleOnReceive = (address, amount) => {
@@ -80,29 +80,35 @@ const Wallet = () => {
   const handleOnImport = (seed) => {
     console.log(`onImport: ${seed}`);
     createWallet(seed);
-  }
+  };
 
   const handleOnCreate = (seed) => {
     console.log(`onCreate: ${seed}`);
     createWallet(seed);
-  }
+  };
 
   return (
-      <div className="AppBody">
+      <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-start pt-16">
         {walletStore ? (
             <>
-              <header>
-                <h1>Reddcoin Wallet</h1>
+              <header className="mb-4">
+                <h1 className="text-4xl font-bold text-blue-600 text-center">Reddcoin Wallet</h1>
               </header>
-              <BalanceComponent data={getBalance()}/>
-              <SendReceiveComponent onSend={handleOnSend}
-                                    onReceive={handleOnReceive}/>
-              <TransactionHistoryComponent data={getTransactions()}/>
+              <div>
+                <div className="flex flex-col md:flex-row gap-2 max-w-full">
+                  <BalanceComponent data={getBalance()}/>
+                  <SendReceiveComponent onSend={handleOnSend}
+                                        onReceive={handleOnReceive}/>
+                </div>
+                <div className="max-w-full">
+                  <TransactionHistoryComponent data={getTransactions()}/>
+                </div>
+              </div>
             </>
         ) : (
             <>
-              <header>
-                <h1>Manage Wallet</h1>
+              <header className="mb-4">
+                <h1 className="text-4xl font-bold text-blue-600 text-center">Manage Wallet</h1>
               </header>
               <ImportCreateComponent onCreate={handleOnCreate} onImport={handleOnImport}/>
             </>
