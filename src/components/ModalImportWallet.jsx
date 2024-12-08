@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid2';
 import CardContent from '@mui/material/CardContent';
 import Card from '@mui/material/Card';
 import {TextField} from '@mui/material';
-import './ModalCreateWallet.css';
 import PropTypes from 'prop-types';
 import ImportCreateComponent from './ImportCreateComponent.jsx';
 

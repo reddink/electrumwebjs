@@ -7,7 +7,6 @@ import Grid from '@mui/material/Grid2';
 
 import ModalSend from './ModalSend.jsx';
 import ModalReceive from './ModalReceive.jsx';
-import './styles.css';
 
 const COIN = 100000000;
 

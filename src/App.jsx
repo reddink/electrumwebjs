@@ -10,7 +10,6 @@ import Settings from './pages/Settings.jsx';
 import Navbar from './pages/Navbar.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 import Login from './pages/Login.jsx';
-import './App.css'
 
 import {useAuth, AuthProvider} from './context/AuthContext.jsx';
 import {ElectrumProvider} from './context/ElectrumContext.jsx';

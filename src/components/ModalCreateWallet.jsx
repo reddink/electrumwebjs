@@ -3,7 +3,6 @@ import Button from '@mui/material/Button';
 import LoopIcon from '@mui/icons-material/Loop';
 import {Checkbox, FormControlLabel, MenuItem, TextField} from '@mui/material';
 import {useElectrum} from '../context/ElectrumContext.jsx';
-import './ModalCreateWallet.css';
 import Page1 from './ModalCreateWalletPage1.jsx';
 import Page2 from './ModalCreateWalletPage2.jsx';
 import Page3 from './ModalCreateWalletPage3.jsx';

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import NorthEastOutlinedIcon from '@mui/icons-material/NorthEastOutlined';
 import SouthEastOutlinedIcon from '@mui/icons-material/SouthEastOutlined';
 import Grid from '@mui/material/Grid2';
-import './styles.css';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 

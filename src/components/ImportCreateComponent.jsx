@@ -5,7 +5,6 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
 
-import './styles.css';
 import ModalImportWallet from './ModalImportWallet.jsx';
 import ModalCreateWallet from './ModalCreateWallet.jsx';
 
