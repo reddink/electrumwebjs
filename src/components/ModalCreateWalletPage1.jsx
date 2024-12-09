@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useElectrum} from '../context/ElectrumContext.jsx';
-import {Checkbox, FormControlLabel, MenuItem, TextField} from '@mui/material';
-import Button from '@mui/material/Button';
-import LoopIcon from '@mui/icons-material/Loop';
 
 /* Entropy is calculated from word length
 * 12: 4
@@ -51,7 +48,12 @@ const Page1 = ({ data, onClose, updateData, nextPage }) => {
   };
 
   const handleWordLength = (event) => {
-    setEnt(event.target.value);
+    setEnt(Number(event.target.value));
+  };
+
+  const generateLabelText = (bits) => {
+    const wordObject = words.find(word => word.value === bits);
+    return `${wordObject ? wordObject.label.slice(0, -1) : ''} Seed Phrase (${bits} bits)`;
   };
 
   const handleNext = () => {
@@ -60,70 +62,72 @@ const Page1 = ({ data, onClose, updateData, nextPage }) => {
   };
 
   return (
-      <div>
-        <h2>Create a new Reddcoin Wallet</h2>
-        <p>!! Sensitive Information !!</p>
-        <p>Please copy the following seed phrase and keep it in a safe place.</p>
-        <div className="grid-container">
-          <div className="grid-item dropdown right-aligned">
-            <TextField
-                select
-                fullWidth
-                label="Word Length"
-                variant="outlined"
-                className="dropdown"
-                defaultValue={128}
-                size="small"
-                onChange={handleWordLength}
-                value={ent}
-            >
-              {words.map((option) => (
-                  <MenuItem selected={option.value === 256} key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-              ))}
-            </TextField>
-          </div>
-          <div className="grid-item">
-            <TextField
-                fullWidth
-                multiline
-                label={`${words.find(word => word.value === ent).
-                    label.
-                    slice(0, -1)} Seed Phrase (${ent} bits)`}
-                variant="outlined"
-                value={data? data: newseed}
+      <div className="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
+        <h2 className="text-lg text-center font-semibold text-gray-900">Create a new Reddcoin Wallet</h2>
+        <p className="text-center text-gray-600">!! Sensitive Information !!</p>
+        <p className="text-sm text-gray-600"> Please copy the following
+          seed phrase and keep it in a safe place.</p>
+        <div className="space-y-4">
+          <div className="flex flex-col">
+            <label htmlFor="seedPhrase" className="text-sm font-medium text-gray-700">
+              {generateLabelText(ent)}
+            </label>
+            <textarea
+                id="seedPhrase"
+                rows="4"
+                value={data ? data : newseed}
+                readOnly
+                className="mt-1 p-2.5 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
             />
           </div>
-          <div className="grid-item regenerate">
-            <Button
+
+          <div className="flex space-x-4">
+            <button
                 onClick={getNewSeed}
-                variant="contained"
-                color="tertiary"
-                className="button"
-                startIcon={<LoopIcon/>}
+                className="flex-1 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 hover:shadow-lg"
             >
               Regenerate
-            </Button>
+            </button>
+            <div className="flex-1">
+              <label htmlFor="wordLength" className="sr-only">
+                Word Length
+              </label>
+              <select
+                  id="wordLength"
+                  className="block w-full p-2.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300"
+                  onChange={handleWordLength}
+                  value={ent}
+              >
+                {words.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                ))}
+              </select>
+            </div>
           </div>
-          <div className="grid-item">
-            <FormControlLabel
-                control={<Checkbox checked={isChecked}
-                                   onChange={(e) => setIsChecked(e.target.checked)}/>}
-                label="I have safely saved my seed phrase"
+
+          <div className="flex items-center space-x-2">
+            <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={(e) => setIsChecked(e.target.checked)}
+                className="form-checkbox h-5 w-5 text-blue-600 focus:ring-blue-500"
+                id="confirmation"
             />
+            <label htmlFor="confirmation" className="text-sm text-gray-700">
+              I have safely saved my seed phrase
+            </label>
           </div>
-          <div className="grid-item">
-            <Button onClick={onClose} variant="contained" color="secondary"
-                    className="button">
+          <div className="flex justify-end space-x-4">
+            <button onClick={onClose}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300">
               Cancel
-            </Button>
-          </div>
-          <div className="grid-item">
-            <Button disabled={!isChecked} onClick={handleNext} variant="contained" color="primary"
-                    className="button">
+            </button>
+            <button disabled={!isChecked} onClick={handleNext}
+                    className="bg-blue-500 hover:bg-blue-700 text-white disabled:bg-blue-300 font-bold py-2 px-4 rounded transition duration-300">
               Next
-            </Button>
+            </button>
           </div>
         </div>
       </div>

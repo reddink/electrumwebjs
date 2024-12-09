@@ -1,7 +1,4 @@
 import React, {useEffect} from 'react';
-import Button from '@mui/material/Button';
-import LoopIcon from '@mui/icons-material/Loop';
-import {Checkbox, FormControlLabel, MenuItem, TextField} from '@mui/material';
 import {useElectrum} from '../context/ElectrumContext.jsx';
 import Page1 from './ModalCreateWalletPage1.jsx';
 import Page2 from './ModalCreateWalletPage2.jsx';
@@ -109,11 +106,15 @@ const ModalCreateWallet = ({onCreate,onClose}) => {
   // };
 
   return (
-      <div className="modal-overlay">
-        <div className="modal-content">
-          <div className="wizard-container">
-            {renderPage()}
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div
+            className="bg-white rounded-lg overflow-hidden shadow-lg transform transition-all sm:max-w-lg sm:w-full">
+          <div className="p-6">
+            <div className="wizard-container">
+              {renderPage()}
+            </div>
           </div>
+
         </div>
       </div>
   );
