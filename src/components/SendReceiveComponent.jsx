@@ -1,14 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid2';
-
 import ModalSend from './ModalSend.jsx';
 import ModalReceive from './ModalReceive.jsx';
-
-const COIN = 100000000;
 
 const ModalComponent = ({ isOpen, Model, onClose, onSend, onReceive }) => {
   return (
@@ -54,47 +47,34 @@ const SendReceiveComponent = ({ onSend, onReceive }) => {
   }
 
   return (
-      <Card className="card">
-        <CardContent>
-          <Grid container spacing={2} className="grid-container">
-            <Grid>
-              <Button
-                variant="contained"
-                color="primary"
-                className="button"
-                onClick={handleSend}
-              >
-                Send
-              </Button>
-            </Grid>
-            <Grid>
-              <Button
-                variant="contained"
-                color="secondary"
-                className="button"
-                onClick={handleReceive}
-              >
-                Receive
-              </Button>
-            </Grid>
-          </Grid>
-        </CardContent>
+      <div className="sendreceivecomponent w-full mx-auto p-4 bg-white rounded-xl shadow-md flex items-center justify-center">
+        <div className="flex flex-row md:flex-col">
+          <button
+              className="w-32 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 mx-2 my-2 rounded focus:outline-none focus:shadow-outline transition duration-300"
+              onClick={handleSend}
+          >
+            Send
+          </button>
+          <button
+              className="w-32 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 mx-2 my-2 rounded focus:outline-none focus:shadow-outline transition duration-300"
+              onClick={handleReceive}
+          >
+            Receive
+          </button>
+        </div>
         <ModalComponent
-        isOpen={isSendModalOpen}
-        Model={ModalSend}
-        onClose={handleCloseModel}
-        onSend={onSend}
-        onReceive={onReceive}
-      />
-      <ModalComponent
-        isOpen={isReceiveModalOpen}
-        Model={ModalReceive}
-        onClose={handleCloseModel}
-        onReceive={onReceive}
-        onSend={onSend}
-      />
-
-      </Card>
+            isOpen={isSendModalOpen}
+            Model={ModalSend}
+            onClose={handleCloseModel}
+            onSend={onSend}
+        />
+        <ModalComponent
+            isOpen={isReceiveModalOpen}
+            Model={ModalReceive}
+            onClose={handleCloseModel}
+            onReceive={onReceive}
+        />
+      </div>
   );
 };
 
