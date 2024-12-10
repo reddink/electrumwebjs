@@ -1,54 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid2';
 
 const COIN = 100000000;
 
-const BalanceComponent = ({ data }) => {
+const BalanceComponent = ({data}) => {
   return (
-      <Card className="card">
-        <CardContent>
-          <Typography variant="h5" component="div" className="typography-margin">
-            <MonetizationOnOutlinedIcon/> Balance
-          </Typography>
-          <Grid container spacing={1}>
-            <Grid>
-              <Typography variant="body2" color="text.secondary">
-                <strong>Total:</strong>
-              </Typography>
-            </Grid>
-            <Grid>
-              <Typography variant="body2" color="text.secondary">
-                {data.totalBalance / COIN} RDD
-              </Typography>
-            </Grid>
-            <Grid>
-              <Typography variant="body2" color="text.secondary">
-                <strong>Confirmed:</strong>
-              </Typography>
-            </Grid>
-            <Grid>
-              <Typography variant="body2" color="text.secondary">
-                {data.confirmed / COIN} RDD
-              </Typography>
-            </Grid>
-            <Grid>
-              <Typography variant="body2" color="text.secondary">
-                <strong>Unconfirmed:</strong>
-              </Typography>
-            </Grid>
-            <Grid>
-              <Typography variant="body2" color="text.secondary">
-                {data.unconfirmed / COIN} RDD
-              </Typography>
-            </Grid>
-          </Grid>
-        </CardContent>
-      </Card>
+      <div className="balancecomponent w-full max-w-none mx-auto p-4 bg-white rounded-xl shadow-md">
+        <div className="flex flex-col md:flex-row items-center">
+          <div className="mt-4 md:mt-0">
+            <h2 className="text-xl font-medium text-black">Balance</h2>
+            <div className="flex flex-col sm:flex-row mt-2 space-y-2 sm:space-y-0 sm:space-x-4">
+              <div className="text-gray-600">
+                <strong>Total:</strong> {data.totalBalance / COIN} RDD
+              </div>
+              <div className="text-gray-600">
+                <strong>Confirmed:</strong> {data.confirmed / COIN} RDD
+              </div>
+              <div className="text-gray-600">
+                <strong>Unconfirmed:</strong> {data.unconfirmed / COIN} RDD
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
   );
 };
 
