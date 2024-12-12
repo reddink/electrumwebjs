@@ -1,0 +1,19 @@
+name: electrumwebjs
+services:
+  reddwallet:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    image: reddwallet
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 3000
+        published: "3000"
+        protocol: tcp
+networks:
+  default:
+    name: reddwallet_default
