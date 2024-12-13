@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Typography} from '@mui/material';
+import { Typography} from '@mui/material';
 import { QRCode } from 'react-qrcode-logo';
 import logo from '../assets/icon.png';
 
@@ -29,46 +29,46 @@ const ModalReceive = ({ onClose, onReceive }) => {
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <div className="modal-body">
-          <div className="grid-container">
-            <div className="send-body">
-              <div className="grid-header">
-                <Typography variant="h5" component="h1">Receive Reddcoin (RDD)</Typography>
-              </div>
-              <div className="qr-code">
-                <QRCode
-                    value={`reddcoin:${unUsedAddress}`}
-                    logoImage = {logo}
-                    logoWidth = {50}
-                    // logoHeight = {100}
-                    logoBackgroundColor = "#ffffff"
-                    logoBorderRadius = {0}
-                    logoBorderColor = "#ffffff"
-                    logoBorderWidth = {0}
-                    logoMargin = {0}
-                    color = "#000000"
-                    backgroundColor = "#ffffff"
-                />
-              </div>
-              <div className="center" style={{"fontSize": "small"}}>
-                <Typography variant="p" component="p">{unUsedAddress}</Typography>
-              </div>
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div
+            className="bg-white rounded-lg shadow-xl overflow-hidden transform sm:max-w-lg sm:w-full transition-all">
+          <div className="px-8 py-6">
+            <div className="mb-4">
+              <Typography variant="h5" component="h1"
+                          className="text-xl font-semibold text-gray-800">
+                Receive Reddcoin (RDD)
+              </Typography>
             </div>
-
-          </div>
-        </div>
-        <div className="modal-footer">
-          <div className="grid-container-footer">
-            <div>
-              <Button onClick={onClose} variant="contained" color="secondary">Close</Button>
+            <div className="flex justify-center mb-4">
+              <QRCode
+                  value={`reddcoin:${unUsedAddress}`}
+                  logoImage={logo}
+                  logoWidth={40}
+                  logoBackgroundColor="#ffffff"
+                  logoBorderRadius="full"
+                  logoMargin={10}
+                  logoPadding={1}
+                  logoPaddingStyle={"circle"}
+                  logoOpacity={0.8}
+                  color="#000000"
+                  backgroundColor="#ffffff"
+              />
+            </div>
+            <div className="text-center text-gray-800">
+              <p className="break-all">{unUsedAddress}</p>
             </div>
           </div>
-
+          <div
+              className="flex justify-end items-center px-8 py-4 bg-gray-50 border-t border-gray-200">
+            <button
+                onClick={onClose}
+                className="w-32 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

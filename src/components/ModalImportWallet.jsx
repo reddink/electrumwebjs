@@ -1,12 +1,5 @@
 import React, {useState} from 'react';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid2';
-import CardContent from '@mui/material/CardContent';
-import Card from '@mui/material/Card';
-import {TextField} from '@mui/material';
-import './ModalCreateWallet.css';
 import PropTypes from 'prop-types';
-import ImportCreateComponent from './ImportCreateComponent.jsx';
 
 const ModalImportWallet = ({ onClose, onImport }) => {
   const [textFieldValue, setTextFieldValue] = useState('');
@@ -43,28 +36,34 @@ const ModalImportWallet = ({ onClose, onImport }) => {
   }
 
   return (
-      <div className="modal-overlay">
-        <div className="modal-content">
-          <div className="modal-body">
-            <h2>Import Reddcoin Seed phrase</h2>
-            <p>Create to the Wallet!</p>
-            <div className="grid-container">
-              <div className="grid-item">
-                <TextField fullWidth
-                           multiline={true}
-                           label="Recovery Seed Phrase"
-                           variant="outlined"
-                           onChange={handleTextFieldChange}
-                           value={textFieldValue}
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div
+            className="bg-white rounded-lg overflow-hidden shadow-lg transform transition-all sm:max-w-lg sm:w-full">
+          <div className="px-8 py-6">
+            <h2 className="text-xl font-semibold text-gray-800">Import Reddcoin Seed phrase</h2>
+            <p className="text-sm text-gray-600">Paste your seed phrase to restore wallet.</p>
+            <div className="space-y-4">
+              <div className="flex flex-col">
+                <label htmlFor="seedPhrase" className="text-sm font-medium text-gray-700">
+                  Recovery Seed Phrase
+                </label>
+                <textarea
+                    id="seedPhrase"
+                    rows="4"
+                    value={textFieldValue}
+                    onChange={handleTextFieldChange}
+                    className="mt-1 p-2.5 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
                 />
               </div>
-              <div className="grid-item">
-                <Button onClick={onClose} variant="contained" color="secondary"
-                        className="button">Cancel</Button>
-              </div>
-              <div className="grid-item">
-                <Button onClick={handleImport} variant="contained" color="primary"
-                        className="button">Ok</Button>
+              <div className="flex space-x-4">
+                <button onClick={onClose}
+                        className="flex-1 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 hover:shadow-lg">
+                  Cancel
+                </button>
+                <button onClick={handleImport}
+                        className="flex-1 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 hover:shadow-lg">
+                  Ok
+                </button>
               </div>
             </div>
           </div>

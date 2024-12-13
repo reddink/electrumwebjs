@@ -1,25 +1,20 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
 
 const Page3 = ({ previousPage, onCreate }) => {
 
   return (
-      <div>
-        <h2>Ready to create wallet</h2>
-        <div className="grid-item">
-          <Button onClick={previousPage}
-                  variant="contained"
-                  color="primary"
-                  className="button">
+      <div className="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
+        <h2 className="text-lg font-semibold text-gray-900">Ready to create wallet</h2>
+        <div className="flex justify-end space-x-4">
+          <button onClick={previousPage}
+                  className="bg-blue-500 hover:bg-blue-700 text-white disabled:bg-blue-300 font-bold py-2 px-4 rounded transition duration-300">
             Back
-          </Button>
-          <Button
-                  onClick={onCreate}
-                  variant="contained"
-                  color="primary"
-                  className="button">
+          </button>
+          <button
+              onClick={onCreate}
+              className="bg-blue-500 hover:bg-blue-700 text-white disabled:bg-blue-300 font-bold py-2 px-4 rounded transition duration-300">
             Create
-          </Button>
+          </button>
         </div>
       </div>
   );

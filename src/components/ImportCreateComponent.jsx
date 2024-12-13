@@ -1,15 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid2';
-
-import './styles.css';
 import ModalImportWallet from './ModalImportWallet.jsx';
 import ModalCreateWallet from './ModalCreateWallet.jsx';
-
-const COIN = 100000000;
 
 const ModalComponent = ({isOpen, Modal, onClose, onCreate, onImport}) => {
   return (
@@ -65,33 +57,23 @@ const ImportCreateComponent = ({onCreate, onImport}) => {
   }
 
   return (
-      <Card className="card">
-        <CardContent>
-          <Grid container spacing={2} direction="column" className="grid-container">
-            <Grid>
-              <Button
-                  variant="contained"
-                  color="primary"
-                  className="button"
-                  fullWidth
+      <div className="max-w-md mx-auto my-4 p-6 bg-white rounded-lg shadow-md">
+            <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+              <button
+                  type="button"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300"
                   onClick={handleCreateNewWallet}
               >
                 Create a new wallet
-              </Button>
-            </Grid>
-            <Grid>
-              <Button
-                  variant="contained"
-                  color="secondary"
-                  className="button"
-                  fullWidth
+              </button>
+              <button
+                  type="button"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300"
                   onClick={handleImportNewWallet}
               >
                 Restore a wallet
-              </Button>
-            </Grid>
-          </Grid>
-        </CardContent>
+              </button>
+            </div>
         <ModalComponent
             isOpen={isCreateWalletModalOpen}
             Modal={ModalCreateWallet}
@@ -104,8 +86,7 @@ const ImportCreateComponent = ({onCreate, onImport}) => {
             onClose={handleCloseImportModel}
             onImport={handleOnImport}
         />
-
-      </Card>
+      </div>
   );
 };
 
