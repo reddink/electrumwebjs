@@ -2,10 +2,17 @@ import React from 'react';
 import {TextField, Typography} from '@mui/material';
 import PropTypes from 'prop-types';
 
+const COIN = 100000000;
+
 const ModalSend = ({ onClose, onSend }) => {
   const [amount, setAmount] = React.useState('');
   const [recipient, setRecipient] = React.useState('');
   const [alert, setAlert] = React.useState(null); // State for the alert
+
+  const formatAmount = (amount) => {
+    // convert amount to satoshi
+    return amount * COIN;
+  }
 
   const handleOnSend = () => {
     console.log(`onSend: ${recipient}, ${amount}`);
@@ -14,10 +21,10 @@ const ModalSend = ({ onClose, onSend }) => {
       if (!recipient) {
         throw new Error('Recipient address is required.');
       }
-      if (!amount || isNaN(amount) || parseFloat(amount) <= 0) {
+      if (!amount || isNaN(amount) || parseInt(formatAmount(amount)) <= 0) {
         throw new Error('Amount must be a positive number.');
       }
-      onSend(recipient, parseFloat(amount));
+      onSend(recipient, parseInt(formatAmount(amount)));
       setAlert({ type: 'success', message: 'Transaction sent successfully!' });
       setRecipient('');
       setAmount('');
