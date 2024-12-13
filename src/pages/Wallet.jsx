@@ -70,7 +70,7 @@ const Wallet = () => {
     if (!wallet) {
       return 'Error';
     }
-    wallet.send(amount * 100000000, acctIndex, requirePwd, address, password, monitor);
+    wallet.send(amount, acctIndex, requirePwd, address, password, monitor);
   };
 
   const handleOnReceive = (address, amount) => {
