@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom';
 import {useAuth} from '../context/AuthContext.jsx';
 import {FaBars} from 'react-icons/fa';
 import React, {useState} from 'react';
+import packageJson from '../../package.json'; // Import package.json
 
 const Navbar = () => {
   const {user, logout} = useAuth();
@@ -16,6 +17,9 @@ const Navbar = () => {
         <div className="container mx-auto px-4 py-2 flex justify-between items-center">
           {/* Logo */}
           <h1 className="text-xl font-bold">ReddCoin</h1>
+
+          {/* App Version */}
+          <p className="text-sm text-gray-200">Version: {packageJson.version}</p> {/* Display app version */}
 
           {/* Navigation Links */}
           <ul
