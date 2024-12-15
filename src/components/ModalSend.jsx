@@ -3,6 +3,7 @@ import {TextField, Typography} from '@mui/material';
 import PropTypes from 'prop-types';
 
 const COIN = 100000000;
+const FEE = 100000;
 
 const ModalSend = ({ data, onClose, onSend }) => {
   const [amount, setAmount] = React.useState('');
@@ -12,6 +13,16 @@ const ModalSend = ({ data, onClose, onSend }) => {
   const formatAmount = (amount) => {
     // convert amount to satoshi
     return amount * COIN;
+  }
+
+  const handleOnAmountChange = (event) => {
+    if (formatAmount(event.target.value) + FEE <= data.totalBalance) {
+      setAlert(null);
+    }
+    else {
+      setAlert({ type: 'error', message: 'Not enough balance.' });
+    }
+    setAmount(event.target.value);
   }
 
   const handleOnSend = () => {
@@ -62,7 +73,7 @@ const ModalSend = ({ data, onClose, onSend }) => {
               label="Amount (RDD)"
               variant="outlined"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={(e) => handleOnAmountChange(e)}
           />
           <p className="text-blue-600">Available Balance: {data.totalBalance / COIN}</p>
         </div>
