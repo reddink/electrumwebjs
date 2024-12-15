@@ -16,14 +16,14 @@ const ModalSend = ({ data, onClose, onSend }) => {
     return amount * COIN;
   }
 
-  const handleOnAmountChange = (event) => {
-    if (formatAmount(event.target.value) + FEE <= data.totalBalance) {
+  const handleOnAmountChange = (value) => {
+    if (formatAmount(value) + FEE <= data.totalBalance) {
       setAlert(null);
     }
     else {
       setAlert({ type: 'error', message: 'Not enough balance.' });
     }
-    setAmount(event.target.value);
+    setAmount(value);
   }
 
   const handleOnAvailableBalanceChange = (event) => {
@@ -85,7 +85,7 @@ const ModalSend = ({ data, onClose, onSend }) => {
               label="Amount (RDD)"
               variant="outlined"
               value={amount}
-              onChange={(e) => handleOnAmountChange(e)}
+              onChange={(e) => handleOnAmountChange(e.target.value)}
           />
 
           <div className="flex items-center space-x-2">
