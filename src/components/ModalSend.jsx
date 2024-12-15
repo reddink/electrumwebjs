@@ -8,6 +8,7 @@ const FEE = 100000;
 const ModalSend = ({ data, onClose, onSend }) => {
   const [amount, setAmount] = React.useState('');
   const [recipient, setRecipient] = React.useState('');
+  const [useAvailableBalance, setUseAvailableBalance] = React.useState(false);
   const [alert, setAlert] = React.useState(null); // State for the alert
 
   const formatAmount = (amount) => {
@@ -23,6 +24,17 @@ const ModalSend = ({ data, onClose, onSend }) => {
       setAlert({ type: 'error', message: 'Not enough balance.' });
     }
     setAmount(event.target.value);
+  }
+
+  const handleOnAvailableBalanceChange = (event) => {
+    console.log(` Use avail bal ${event.target.checked}`);
+    setUseAvailableBalance(event.target.checked);
+    if (event.target.checked) {
+      const calculatedAmount = (data.totalBalance) / COIN;
+      setAmount(calculatedAmount > 0 ? calculatedAmount.toFixed(8) : '');
+    } else {
+      setAmount('');
+    }
   }
 
   const handleOnSend = () => {
@@ -75,6 +87,19 @@ const ModalSend = ({ data, onClose, onSend }) => {
               value={amount}
               onChange={(e) => handleOnAmountChange(e)}
           />
+
+          <div className="flex items-center space-x-2">
+            <input
+                type="checkbox"
+                id="available-bal-checkbox"
+                className="form-checkbox h-5 w-5 text-blue-600"
+                value={useAvailableBalance}
+                onChange={(e) => handleOnAvailableBalanceChange(e)}
+            />
+            <label htmlFor="available-bal-checkbox" className="text-sm text-gray-600">
+              Use available balance minus fee
+            </label>
+          </div>
           <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
             <p className="text-blue-600">Network Fee: {FEE / COIN}</p>
             <p className="text-blue-600">Available Balance: {data.totalBalance / COIN}</p>
