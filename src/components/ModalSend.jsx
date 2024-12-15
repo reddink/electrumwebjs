@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const COIN = 100000000;
 
-const ModalSend = ({ onClose, onSend }) => {
+const ModalSend = ({ data, onClose, onSend }) => {
   const [amount, setAmount] = React.useState('');
   const [recipient, setRecipient] = React.useState('');
   const [alert, setAlert] = React.useState(null); // State for the alert
@@ -64,6 +64,7 @@ const ModalSend = ({ onClose, onSend }) => {
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
           />
+          <p className="text-blue-600">Available Balance: {data.totalBalance / COIN}</p>
         </div>
       </div>
 
@@ -100,6 +101,7 @@ const ModalSend = ({ onClose, onSend }) => {
 };
 
 ModalSend.propTypes = {
+  data: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
   onSend: PropTypes.func.isRequired,
 };
