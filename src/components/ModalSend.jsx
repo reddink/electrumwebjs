@@ -75,7 +75,10 @@ const ModalSend = ({ data, onClose, onSend }) => {
               value={amount}
               onChange={(e) => handleOnAmountChange(e)}
           />
-          <p className="text-blue-600">Available Balance: {data.totalBalance / COIN}</p>
+          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+            <p className="text-blue-600">Network Fee: {FEE / COIN}</p>
+            <p className="text-blue-600">Available Balance: {data.totalBalance / COIN}</p>
+          </div>
         </div>
       </div>
 
