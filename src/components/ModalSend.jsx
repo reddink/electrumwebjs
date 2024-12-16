@@ -9,6 +9,7 @@ const ModalSend = ({ data, onClose, onSend }) => {
   const [amount, setAmount] = React.useState('');
   const [recipient, setRecipient] = React.useState('');
   const [useAvailableBalance, setUseAvailableBalance] = React.useState(false);
+  const [subtractFee, setSubtractFee] = React.useState(false);
   const [alert, setAlert] = React.useState(null); // State for the alert
 
   const formatAmount = (amount) => {
@@ -24,6 +25,11 @@ const ModalSend = ({ data, onClose, onSend }) => {
       setAlert({ type: 'error', message: 'Not enough balance.' });
     }
     setAmount(value);
+  }
+
+  const handleOnSubtractFeeChange = (event) => {
+     console.log(` Subtract fee from avail bal ${event.target.checked}`);
+     setSubtractFee(event.target.checked);
   }
 
   const handleOnAvailableBalanceChange = (event) => {
@@ -98,6 +104,18 @@ const ModalSend = ({ data, onClose, onSend }) => {
             />
             <label htmlFor="available-bal-checkbox" className="text-sm text-gray-600">
               Use available balance minus fee
+            </label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <input
+                type="checkbox"
+                id="subtract-fee-checkbox"
+                className="form-checkbox h-5 w-5 text-blue-600"
+                value={subtractFee}
+                onChange={(e) => handleOnSubtractFeeChange(e)}
+            />
+            <label htmlFor="subtract-fee-checkbox" className="text-sm text-gray-600">
+              Subtract fee from amount.
             </label>
           </div>
           <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
