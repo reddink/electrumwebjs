@@ -30,6 +30,7 @@ export const ElectrumProvider = ({children}) => {
       // Add Wallet event handlers
       monitor.registerListener('idle', handleIdle);
       monitor.registerListener('dataReceived', handleDataRecieved);
+      monitor.registerListener('transactionFailed', handleTransactionFailed)
 
       return monitor;
     }
@@ -44,6 +45,10 @@ export const ElectrumProvider = ({children}) => {
   const handleDataRecieved = (data) => {
     console.log('data received', data);
   };
+
+  const handleTransactionFailed = (error) => {
+    console.log('Transaction Failed', error);
+  }
 
   useEffect(() => {
     const handleWindowLoad = () => {
