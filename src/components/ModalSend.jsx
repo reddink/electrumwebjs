@@ -53,7 +53,17 @@ const ModalSend = ({ data, onClose, onSend }) => {
       if (!amount || isNaN(amount) || parseInt(formatAmount(amount)) <= 0) {
         throw new Error('Amount must be a positive number.');
       }
-      onSend(recipient, parseInt(formatAmount(amount)));
+
+      let calculatedAmount = parseInt(formatAmount(amount));
+      if (subtractFee) {
+        calculatedAmount -= FEE;
+      }
+      if (calculatedAmount + FEE > data.totalBalance) {
+        throw new Error('Not enough balance. Transaction fee is included in the amount.');
+      }
+
+
+      onSend(recipient, calculatedAmount);
       setAlert({ type: 'success', message: 'Transaction sent successfully!' });
       setRecipient('');
       setAmount('');
