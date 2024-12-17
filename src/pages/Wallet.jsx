@@ -97,7 +97,8 @@ const Wallet = () => {
               <div>
                 <div className="flex flex-col md:flex-row gap-2 max-w-full">
                   <BalanceComponent data={getBalance()}/>
-                  <SendReceiveComponent onSend={handleOnSend}
+                  <SendReceiveComponent data={getBalance()}
+                                        onSend={handleOnSend}
                                         onReceive={handleOnReceive}/>
                 </div>
                 <div className="max-w-full">

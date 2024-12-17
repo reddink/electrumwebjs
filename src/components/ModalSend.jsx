@@ -3,15 +3,44 @@ import {TextField, Typography} from '@mui/material';
 import PropTypes from 'prop-types';
 
 const COIN = 100000000;
+const FEE = 100000;
 
-const ModalSend = ({ onClose, onSend }) => {
+const ModalSend = ({ data, onClose, onSend }) => {
   const [amount, setAmount] = React.useState('');
   const [recipient, setRecipient] = React.useState('');
+  const [useAvailableBalance, setUseAvailableBalance] = React.useState(false);
+  const [subtractFee, setSubtractFee] = React.useState(false);
   const [alert, setAlert] = React.useState(null); // State for the alert
 
   const formatAmount = (amount) => {
     // convert amount to satoshi
     return amount * COIN;
+  }
+
+  const handleOnAmountChange = (value) => {
+    if (formatAmount(value) + FEE <= data.totalBalance) {
+      setAlert(null);
+    }
+    else {
+      setAlert({ type: 'error', message: 'Not enough balance.' });
+    }
+    setAmount(value);
+  }
+
+  const handleOnSubtractFeeChange = (event) => {
+     console.log(` Subtract fee from avail bal ${event.target.checked}`);
+     setSubtractFee(event.target.checked);
+  }
+
+  const handleOnAvailableBalanceChange = (event) => {
+    console.log(` Use avail bal ${event.target.checked}`);
+    setUseAvailableBalance(event.target.checked);
+    if (event.target.checked) {
+      const calculatedAmount = (data.totalBalance) / COIN;
+      setAmount(calculatedAmount > 0 ? calculatedAmount.toFixed(8) : '');
+    } else {
+      setAmount('');
+    }
   }
 
   const handleOnSend = () => {
@@ -24,7 +53,17 @@ const ModalSend = ({ onClose, onSend }) => {
       if (!amount || isNaN(amount) || parseInt(formatAmount(amount)) <= 0) {
         throw new Error('Amount must be a positive number.');
       }
-      onSend(recipient, parseInt(formatAmount(amount)));
+
+      let calculatedAmount = parseInt(formatAmount(amount));
+      if (subtractFee) {
+        calculatedAmount -= FEE;
+      }
+      if (calculatedAmount + FEE > data.totalBalance) {
+        throw new Error('Not enough balance. Transaction fee is included in the amount.');
+      }
+
+
+      onSend(recipient, calculatedAmount);
       setAlert({ type: 'success', message: 'Transaction sent successfully!' });
       setRecipient('');
       setAmount('');
@@ -62,8 +101,39 @@ const ModalSend = ({ onClose, onSend }) => {
               label="Amount (RDD)"
               variant="outlined"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={(e) => handleOnAmountChange(e.target.value)}
           />
+
+          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+            <div className="flex items-center space-x-2">
+              <input
+                  type="checkbox"
+                  id="available-bal-checkbox"
+                  className="form-checkbox h-5 w-5 text-blue-600"
+                  value={useAvailableBalance}
+                  onChange={(e) => handleOnAvailableBalanceChange(e)}
+              />
+              <label htmlFor="available-bal-checkbox" className="text-sm text-gray-600">
+                Use available balance
+              </label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <input
+                  type="checkbox"
+                  id="subtract-fee-checkbox"
+                  className="form-checkbox h-5 w-5 text-blue-600"
+                  value={subtractFee}
+                  onChange={(e) => handleOnSubtractFeeChange(e)}
+              />
+              <label htmlFor="subtract-fee-checkbox" className="text-sm text-gray-600">
+                Subtract fee from amount.
+              </label>
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+            <p className="text-blue-600">Network Fee: {FEE / COIN}</p>
+            <p className="text-blue-600">Available Balance: {data.totalBalance / COIN}</p>
+          </div>
         </div>
       </div>
 
@@ -100,6 +170,7 @@ const ModalSend = ({ onClose, onSend }) => {
 };
 
 ModalSend.propTypes = {
+  data: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
   onSend: PropTypes.func.isRequired,
 };
