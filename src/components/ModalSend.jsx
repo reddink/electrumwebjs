@@ -94,29 +94,31 @@ const ModalSend = ({ data, onClose, onSend }) => {
               onChange={(e) => handleOnAmountChange(e.target.value)}
           />
 
-          <div className="flex items-center space-x-2">
-            <input
-                type="checkbox"
-                id="available-bal-checkbox"
-                className="form-checkbox h-5 w-5 text-blue-600"
-                value={useAvailableBalance}
-                onChange={(e) => handleOnAvailableBalanceChange(e)}
-            />
-            <label htmlFor="available-bal-checkbox" className="text-sm text-gray-600">
-              Use available balance minus fee
-            </label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <input
-                type="checkbox"
-                id="subtract-fee-checkbox"
-                className="form-checkbox h-5 w-5 text-blue-600"
-                value={subtractFee}
-                onChange={(e) => handleOnSubtractFeeChange(e)}
-            />
-            <label htmlFor="subtract-fee-checkbox" className="text-sm text-gray-600">
-              Subtract fee from amount.
-            </label>
+          <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+            <div className="flex items-center space-x-2">
+              <input
+                  type="checkbox"
+                  id="available-bal-checkbox"
+                  className="form-checkbox h-5 w-5 text-blue-600"
+                  value={useAvailableBalance}
+                  onChange={(e) => handleOnAvailableBalanceChange(e)}
+              />
+              <label htmlFor="available-bal-checkbox" className="text-sm text-gray-600">
+                Use available balance
+              </label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <input
+                  type="checkbox"
+                  id="subtract-fee-checkbox"
+                  className="form-checkbox h-5 w-5 text-blue-600"
+                  value={subtractFee}
+                  onChange={(e) => handleOnSubtractFeeChange(e)}
+              />
+              <label htmlFor="subtract-fee-checkbox" className="text-sm text-gray-600">
+                Subtract fee from amount.
+              </label>
+            </div>
           </div>
           <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
             <p className="text-blue-600">Network Fee: {FEE / COIN}</p>
