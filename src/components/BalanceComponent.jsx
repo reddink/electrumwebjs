@@ -7,7 +7,7 @@ const BalanceComponent = ({data}) => {
   return (
       <div className="balancecomponent w-full max-w-none mx-auto p-4 bg-white rounded-xl shadow-md">
         <div className="flex flex-col md:flex-row items-center">
-          <div className="mt-4 md:mt-0">
+          <div className="mt-0">
             <h2 className="text-xl font-medium text-black">Balance</h2>
             <div className="flex flex-col sm:flex-row mt-2 space-y-2 sm:space-y-0 sm:space-x-4">
               <div className="text-gray-600">
