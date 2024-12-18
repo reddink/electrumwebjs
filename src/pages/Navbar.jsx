@@ -29,12 +29,12 @@ const Navbar = () => {
               style={{maxWidth: 'max-content'}}
           >
             <li><Link to="/" onClick={handleLinkClick}
-                      className="block px-4 py-2 visited:text-white active:text-yellow-400 hover:bg-blue-700 md:hover:bg-transparent rounded">Home</Link>
+                      className="block px-4 py-2 text-white visited:text-white active:text-yellow-400 hover:bg-blue-700 md:hover:bg-transparent rounded">Home</Link>
             </li>
             {user ? (
                 <>
                   <li><Link to="/dashboard" onClick={handleLinkClick}
-                            className="block px-4 py-2 visited:text-white active:text-yellow-400 hover:bg-blue-700 md:hover:bg-transparent rounded">Dashboard</Link>
+                            className="block px-4 py-2 text-white visited:text-white active:text-yellow-400 hover:bg-blue-700 md:hover:bg-transparent rounded">Dashboard</Link>
                   </li>
                   <button onClick={() => {
                     handleLinkClick();
@@ -44,27 +44,27 @@ const Navbar = () => {
                 </>
             ) : (
                 <li><Link to="/login" onClick={handleLinkClick}
-                          className="block px-4 py-2 visited:text-white active:text-yellow-400 hover:bg-blue-700 md:hover:bg-transparent rounded">Login</Link>
+                          className="block px-4 py-2 text-white visited:text-white active:text-yellow-400 hover:bg-blue-700 md:hover:bg-transparent rounded">Login</Link>
                 </li>
             )}
             <li><Link to="/wallet" onClick={handleLinkClick}
-                      className="block px-4 py-2 visited:text-white active:text-yellow-400 hover:bg-blue-700 md:hover:bg-transparent rounded">Wallet</Link>
+                      className="block px-4 py-2 text-white visited:text-white active:text-yellow-400 hover:bg-blue-700 md:hover:bg-transparent rounded">Wallet</Link>
             </li>
             <li><Link to="/about" onClick={handleLinkClick}
-                      className="block px-4 py-2 visited:text-white active:text-yellow-400 hover:bg-blue-700 md:hover:bg-transparent rounded">About</Link>
+                      className="block px-4 py-2 text-white visited:text-white active:text-yellow-400 hover:bg-blue-700 md:hover:bg-transparent rounded">About</Link>
             </li>
             <li><Link to="/contact" onClick={handleLinkClick}
-                      className="block px-4 py-2 visited:text-white active:text-yellow-400 hover:bg-blue-700 md:hover:bg-transparent rounded">Contact</Link>
+                      className="block px-4 py-2 text-white visited:text-white active:text-yellow-400 hover:bg-blue-700 md:hover:bg-transparent rounded">Contact</Link>
             </li>
             <li><Link to="/settings" onClick={handleLinkClick}
-                      className="block px-4 py-2 visited:text-white active:text-yellow-400 hover:bg-blue-700 md:hover:bg-transparent rounded">Settings</Link>
+                      className="block px-4 py-2 text-white visited:text-white active:text-yellow-400 hover:bg-blue-700 md:hover:bg-transparent rounded">Settings</Link>
             </li>
           </ul>
 
           {/* Hamburger Icon for Mobile */}
           <button className="md:hidden text-white focus:outline-none"
                   onClick={() => setIsOpen(!isOpen)}>
-            <FaBars size="1.5em"/>
+            <FaBars size="1em"/>
           </button>
         </div>
       </nav>
