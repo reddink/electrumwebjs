@@ -654,7 +654,7 @@ var HdAccount = stampit().init(function () {
 
         this.enableSpending('');
         stopGap('public', config.stopGap, publicChain);
-        stopGap('change', 1, changeChain);
+        stopGap('change', config.stopGap, changeChain);
 
         this.disableSpending();
     };
@@ -666,13 +666,14 @@ var HdAccount = stampit().init(function () {
 
         this.enableSpending();
         this.generatePublicAddresses(config.stopGap);
-        this.generateChangeAddress();
+        this.generateChangeAddress(config.stopGap);
         this.disableSpending();
         checkActivated();
     };
 
-    this.generateChangeAddress = function () {
-        generateAddresses(changeChain, 1);
+    this.generateChangeAddress = function (count) {
+        var cnt = count || 1;
+        generateAddresses(changeChain, cnt);
     };
 
     this.generatePublicAddresses = function (count) {
@@ -986,7 +987,7 @@ var Monitor = stampit().init(function () {
         that = this,
         requestId = 1 + (new Date()).getTime(),
         isIdle = true,
-        requestDelayMs = 200,
+        requestDelayMs = 0,
         lastRequest = 0,
         currentCookie = false,
         sentRequests = [],
@@ -1114,7 +1115,9 @@ var Monitor = stampit().init(function () {
                 currentRequest;
 
             if (walletWS.readyState === WebSocket.CONNECTING ) {
-                console.log("Not Connected... Waiting to establish");
+                if(secondsSinceRequest > 10) {
+                    console.log("Not Connected... Waiting to establish");
+                }
                 lastRequest = Date.now() / 1000;
                 return;
             } else if (walletWS.readyState === WebSocket.CLOSING || walletWS.readyState === WebSocket.CLOSED ){
@@ -1458,6 +1461,7 @@ var Monitor = stampit().init(function () {
     };
 
     this.stop = function () {
+        doDisconnect();
         clearInterval(intervalId);
     };
 
@@ -1470,6 +1474,9 @@ module.exports = {
         monitor.setWallet(wallet);
         monitor.start();
         return monitor;
+    },
+    stop : function (monitor) {
+        monitor.stop();
     }
 };
 
