@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 const ModalImportWallet = ({ onClose, onImport }) => {
   const [textFieldValue, setTextFieldValue] = useState('');
+  const [alert, setAlert] = React.useState(null); // State for the alert
 
   const handleSend = () => {
     console.log("Send");
@@ -32,10 +33,29 @@ const ModalImportWallet = ({ onClose, onImport }) => {
     setTextFieldValue(sanitizedInput);
   };
 
+  const validateSeedPhrase = (seedPhrase) => {
+    const words = seedPhrase.split(' ');
+
+    // Define valid lengths
+    const validLengths = [12, 15, 18, 21, 24];
+
+    if (!validLengths.includes(words.length)) {
+      throw new Error('Seed phrase must contain correct number of words between 12 and 24.');
+    }
+  };
+
   const handleImport = () => {
     const sanitizedInput = textFieldValue.trim();
-    onImport(sanitizedInput);
-  }
+
+    try {
+      validateSeedPhrase(sanitizedInput);
+      onImport(sanitizedInput);
+
+    } catch (error) {
+      setAlert({ type: 'error', message: error.message }); // Set alert for errors
+      console.error("Error in handleImport:", error.message);
+    }
+  };
 
   return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -57,6 +77,18 @@ const ModalImportWallet = ({ onClose, onImport }) => {
                     className="mt-1 p-2.5 w-full border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-blue-300"
                 />
               </div>
+              {/* Alert Section */}
+              {alert && (
+                <div
+                  className={`px-4 py-3 text-center ${
+                    alert.type === 'error'
+                      ? 'bg-red-100 text-red-800 border-red-400'
+                      : 'bg-green-100 text-green-800 border-green-400'
+                  } border rounded mb-4 mx-6`}
+                >
+                  {alert.message}
+                </div>
+              )}
               <div className="flex space-x-4">
                 <button onClick={onClose}
                         className="flex-1 bg-gradient-to-r from-blue-500 to-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 hover:shadow-lg">
