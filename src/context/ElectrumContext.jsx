@@ -98,8 +98,16 @@ export const ElectrumProvider = ({children}) => {
     createWallet(seed);
   };
 
+  const unloadWallet = () => {
+    localStorage.removeItem('wallet');
+    setWallet(WalletFactory.standardWallet())
+    setWalletStore(null);
+    setMonitor(null);
+
+  }
+
   return (
-      <ElectrumContext.Provider value={{walletStore, wallet, monitor, saveWallet, createWallet, importWallet}}>
+      <ElectrumContext.Provider value={{walletStore, wallet, monitor, saveWallet, createWallet, importWallet, unloadWallet}}>
         {children}
       </ElectrumContext.Provider>
   );
