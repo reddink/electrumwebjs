@@ -26,13 +26,15 @@ const ModalImportWallet = ({ onClose, onImport }) => {
 
   // Handle text field change
   const handleTextFieldChange = (e) => {
-    setTextFieldValue(
-        e.target.value.trim().replace(/[\s\u3000]+/g, ' '),
-    );
+    const input = e.target.value;
+    const sanitizedInput = input.replace(/[\s\u3000]+/g, ' ');
+
+    setTextFieldValue(sanitizedInput);
   };
 
   const handleImport = () => {
-    onImport(textFieldValue);
+    const sanitizedInput = textFieldValue.trim();
+    onImport(sanitizedInput);
   }
 
   return (
